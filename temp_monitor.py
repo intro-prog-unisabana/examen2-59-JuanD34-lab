@@ -13,6 +13,7 @@ def init(max_readings):
     """
     # TODO: Implementar
     pass
+    return {"max": max_readings, "readings": [], "total": 0.0}
 
 
 def add_reading(monitor, temp):
@@ -22,6 +23,11 @@ def add_reading(monitor, temp):
     """
     # TODO: Implementar
     pass
+    
+    if len(monitor["readings"]) < monitor["max"]:
+      monitor["readings"].append(temp)
+      monitor["total"] += temp
+    return monitor
 
 
 def count(monitor):
@@ -30,7 +36,8 @@ def count(monitor):
     """
     # TODO: Implementar
     pass
-
+   
+    return len(monitor["readings"])
 
 def average_temp(monitor):
     """
@@ -38,7 +45,9 @@ def average_temp(monitor):
     """
     # TODO: Implementar
     pass
-
+    if count(monitor) == 0:
+      return 0.0
+    return monitor["total"] / count(monitor)
 
 def format_readings(monitor):
     """
@@ -47,7 +56,8 @@ def format_readings(monitor):
     """
     # TODO: Implementar
     pass
-
+    
+    return str(monitor["readings"])
 
 def highest_temp(monitor):
     """
@@ -55,7 +65,10 @@ def highest_temp(monitor):
     """
     # TODO: Implementar
     pass
-
+    
+    if not monitor["readings"]:
+        return None
+    return max(monitor["readings"])
 
 def coldest_window(monitor, k):
     """
@@ -63,6 +76,10 @@ def coldest_window(monitor, k):
     """
     # TODO: Implementar
     pass
+    
+    readings = monitor["readings"]
+    if len(readings) < k or k <= 0:
+        return None
 
 
 def longest_rising_streak(monitor):
@@ -73,6 +90,13 @@ def longest_rising_streak(monitor):
     # TODO: Implementar
     pass
 
+    readings = monitor["readings"]
+    if not readings:
+            return 0
+
+    max_streak = 1
+    current_streak = 1
+                      
 
 def main():
     # crear un monitor para temperaturas de Bogota (12 horas, 6am-5pm)
